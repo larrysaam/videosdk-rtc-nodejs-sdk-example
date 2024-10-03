@@ -6,8 +6,10 @@ const morgan = require("morgan");
 const { default: fetch } = require("node-fetch");
 const jwt = require("jsonwebtoken");
 
-const PORT = 9000;
+const PORT = 4000;
 const app = express();
+
+
 
 app.use(cors());
 app.use(express.json());
@@ -21,8 +23,8 @@ app.get("/", (req, res) => {
 
 //
 app.get("/get-token", (req, res) => {
-  const API_KEY = process.env.VIDEOSDK_API_KEY;
-  const SECRET_KEY = process.env.VIDEOSDK_SECRET_KEY;
+  const API_KEY = 'e59a32c2-6ff5-4202-aea3-4a32b000e4c3';
+  const SECRET_KEY = '9e7e05dc3524d2d8e708eefb3fa4c5a29b5a7abf78cbe7882ac385c44ceed569';
 
   const options = { expiresIn: "10m", algorithm: "HS256" };
 
@@ -38,7 +40,7 @@ app.get("/get-token", (req, res) => {
 //
 app.post("/create-meeting/", (req, res) => {
   const { token, region } = req.body;
-  const url = `${process.env.VIDEOSDK_API_ENDPOINT}/api/meetings`;
+  const url = `https://api.videosdk.live/api/meetings`;
   const options = {
     method: "POST",
     headers: { Authorization: token, "Content-Type": "application/json" },
@@ -56,7 +58,7 @@ app.post("/validate-meeting/:meetingId", (req, res) => {
   const token = req.body.token;
   const meetingId = req.params.meetingId;
 
-  const url = `${process.env.VIDEOSDK_API_ENDPOINT}/api/meetings/${meetingId}`;
+  const url = `https://api.videosdk.live/api/meetings/${meetingId}`;
 
   const options = {
     method: "POST",
